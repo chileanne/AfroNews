@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -32,12 +33,16 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import cub.sys360.afronews.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,11 +54,13 @@ fun NewsDetailScreen(){
         topBar = {
             CenterAlignedTopAppBar(
                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                   containerColor = MaterialTheme.colorScheme.primaryContainer,
-                   titleContentColor = MaterialTheme.colorScheme.primary,
+                  // containerColor = MaterialTheme.colorScheme.primaryContainer,
+                   //titleContentColor = MaterialTheme.colorScheme.primary,
                ),
                 title = {
-                    Text(text = "Sports")
+                    Text(
+                        text = "Sports",
+                        style =MaterialTheme.typography.headlineSmall )
             },
 
                 navigationIcon = {
@@ -68,6 +75,7 @@ fun NewsDetailScreen(){
 
                 actions = {
                     IconButton(
+                        modifier = Modifier.clip(CircleShape).background(color = Color.Gray),
                         onClick = { /*TODO*/ },) {
 
                         Icon(imageVector = Icons.Filled.Share,contentDescription = "Share")
@@ -114,7 +122,9 @@ fun NewsDetailScreen(){
             )
             
             
-            Text(text = "Djokovic Dominates the Tennis Court: A masterclass in Tennise Brilliance")
+            Text(
+                text = "Djokovic Dominates the Tennis Court: A masterclass in Tennise Brilliance",
+                style = MaterialTheme.typography.bodyLarge)
 
             Spacer(
                 modifier = Modifier.height(8.dp)
@@ -131,7 +141,8 @@ fun NewsDetailScreen(){
                 Spacer(
                     modifier = Modifier.width(8.dp)
                 )
-                Text(text = "1 hour ago")
+                Text(text = "1 hour ago",
+                    style = MaterialTheme.typography.bodySmall)
             }
 
 
@@ -142,7 +153,11 @@ fun NewsDetailScreen(){
 
 
 
-            Text(text = "By Jehnson Wilson")
+            Text(text = "By Jehnson Wilson",
+                style= MaterialTheme.typography.bodyMedium.copy(
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.W500
+                ))
 
             Spacer(
                 modifier = Modifier.height(8.dp)
@@ -152,6 +167,7 @@ fun NewsDetailScreen(){
                     "\n" +
                     "Ut orci ante, dignissim quis mollis quis, luctus non arcu. Cras tristique nibh dolor, eu volutpat lorem pellentesque ac. Phasellus non urna fermentum, malesuada velit sed, blandit quam. Donec facilisis nisi quis egestas ornare. Integer ut dictum nunc. Suspendisse hendrerit sit amet enim rhoncus rutrum. Fusce malesuada quis mi vehicula mollis. Aenean vel vestibulum tortor. Etiam eu condimentum metus, vel sollicitudin libero. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
 
+                style = MaterialTheme.typography.bodyMedium
                 )
 
 
