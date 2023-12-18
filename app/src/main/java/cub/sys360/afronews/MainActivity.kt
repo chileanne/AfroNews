@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import cub.sys360.afronews.presentation.HomeScreen
 import cub.sys360.afronews.presentation.NewsDetailScreen
 import cub.sys360.afronews.ui.theme.AfroNewsTheme
 
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
 //                }
 
 
-                NewsDetailScreen()
+                HomeScreen()
             }
         }
     }
