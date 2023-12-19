@@ -1,9 +1,13 @@
 package cub.sys360.afronews.presentation
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
@@ -24,9 +29,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
@@ -41,8 +52,7 @@ import cub.sys360.afronews.viewmodel.homeViewModel
 @Composable
 fun HomeScreen(
     viewModel: homeViewModel = homeViewModel()
-){
-
+) {
 
 
     Scaffold(
@@ -51,19 +61,20 @@ fun HomeScreen(
                 title = {
                     Text(
                         text = "AfroNews",
-                        style = MaterialTheme.typography.headlineSmall )
+                        style = MaterialTheme.typography.headlineSmall
+                    )
                 },
 
                 actions = {
                     sharedIconsImages(
-                        icon  =  Icons.Filled.Search,
+                        icon = Icons.Filled.Search,
                         onclick = {}
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
 
                     sharedIconsImages(
-                        icon  =  Icons.Filled.Notifications,
+                        icon = Icons.Filled.Notifications,
                         onclick = {}
                     )
                 }
@@ -73,52 +84,94 @@ fun HomeScreen(
     ) {
 
         val pagerState = rememberPagerState(
-          initialPage = 0
+            initialPage = 0,
         )
+
+
+
+
+        /**i dont understand yet**/
+        LaunchedEffect(pagerState) {
+            // Collect from the a snapshotFlow reading the currentPage
+            snapshotFlow { pagerState.currentPage }.collect { page ->
+                // Do something with each page change, for example:
+                // viewModel.sendPageSelectedEvent(page)
+                Log.d("Page change", "Page changed to $page")
+            }
+        }
 
         Column(
             modifier = Modifier.padding(it)
         ) {
 
 
-
-            
-            
-            HorizontalPager(pageCount = viewModel.carousleData.size) {
-                Card (
-                  elevation = CardDefaults.cardElevation(4.dp),
+            HorizontalPager(
+                pageCount = viewModel.carousleData.size,
+                state = pagerState
+                ) {
+                Card(
+                    elevation = CardDefaults.cardElevation(4.dp),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(240.dp)
                         .padding(end = 6.dp, start = 6.dp)
-                ){
+                ) {
 
-                    Box () {
+                    Box() {
                         Image(
                             contentScale = ContentScale.FillBounds,
-                            painter = painterResource(id = R.drawable.dj),
-                            contentDescription ="",
-                            modifier=Modifier.fillMaxSize()
+                            painter = painterResource(id = viewModel.carousleData[it].imageUrl),
+                            contentDescription = "",
+                            modifier = Modifier.fillMaxSize()
                         )
 
 
-                        Column (
+                        Column(
                             modifier = Modifier.align(alignment = Alignment.BottomCenter)
-                        ){
+                        ) {
 
 
+                            Row(
+                                modifier = Modifier.padding(start = 12.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = viewModel.carousleData[it].channelLogo),
+                                    contentDescription = "",
+                                    modifier = Modifier
+                                        .size(30.dp)
+                                        .shadow(
+                                            elevation = 4.dp,
+                                            shape = CircleShape
+                                        )
+                                )
 
-                           Text(
+                                Spacer(modifier = Modifier.size(5.dp))
+
+                                Text(
+                                    text = viewModel.carousleData[it].station,
+                                    // modifier = Modifier.padding(all = 20.dp),
+                                    style = MaterialTheme.typography.headlineSmall.copy(
+                                        color = Color.White
+                                    ),
+
+
+                                    )
+
+                            }
+
+
+                            Text(
                                 text = viewModel.carousleData[it].desc,
                                 modifier = Modifier
                                     .align(alignment = Alignment.Start)
-                                    .padding(all = 20.dp),
+                                    .padding(start = 10.dp, bottom = 8.dp, top = 4.dp),
+                                // .padding(all = 20.dp),
                                 style = MaterialTheme.typography.headlineSmall.copy(
                                     color = Color.White
                                 ),
 
 
-                            )
+                                )
                         }
 
 
@@ -126,9 +179,34 @@ fun HomeScreen(
                 }
             }
 
-            
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    // .align(Alignment.BottomCenter)
+                    .padding(bottom = 8.dp),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                repeat(viewModel.carousleData.size) { iteration ->
+                    val color = if (pagerState.currentPage == iteration) Color.Green else Color.LightGray
+                    Box(
+                        modifier = Modifier
+                            .padding(2.dp)
+                            .clip(RectangleShape)
+                            .background(color)
+                            .width(40.dp)
+                            .height(2.dp)
+                            //.size(30.dp)
+                    )
+                }
+
+            }
 
 
         }
     }
+
 }
