@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +29,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -198,12 +201,69 @@ fun HomeScreen(
                             .clip(RectangleShape)
                             .background(color)
                             .width(40.dp)
-                            .height(2.dp)
+                            .height(4.dp)
                             //.size(30.dp)
                     )
                 }
 
             }
+            
+            
+            
+            
+            /** Recommended news**/
+            Row(
+                modifier= Modifier
+                    .fillMaxWidth()
+                    .padding(start = 3.dp, end = 3.dp),
+              horizontalArrangement = Arrangement.SpaceBetween
+                
+            ){
+                Text(text = "Recommendation")
+                Text(text = "Show more")
+            }
+            
+            
+            
+            LazyColumn{
+                items(viewModel.recommendedNews.size) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(180.dp)
+                            .padding(start = 3.dp, end = 3.dp, bottom = 5.dp)
+                    ) {
+                        Row {
+
+                            //left
+                            Surface(
+                                modifier = Modifier.fillMaxWidth(0.5f).fillMaxHeight()
+                                    ,
+                                color = Color.Green
+
+
+                            ) {
+
+                            }
+
+
+                            //right
+                            Surface(
+                                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                                color = Color.Red,
+
+
+                            ) {
+
+                            }
+
+                        }
+                    }
+                }
+            }
+            
+            
+            
+            
 
 
         }
