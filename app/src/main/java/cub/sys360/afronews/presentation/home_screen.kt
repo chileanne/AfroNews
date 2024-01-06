@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.twotone.ThumbUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -44,9 +45,13 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import cub.sys360.afronews.R
+import cub.sys360.afronews.core.shared_widgets.bookmarkButton
 import cub.sys360.afronews.core.shared_widgets.sharedIconsImages
 import cub.sys360.afronews.viewmodel.homeViewModel
 
@@ -164,7 +169,7 @@ fun HomeScreen(
 
 
                             Text(
-                                text = viewModel.carousleData[it].desc,
+                                text = viewModel.carousleData[it].title,
                                 modifier = Modifier
                                     .align(alignment = Alignment.Start)
                                     .padding(start = 10.dp, bottom = 8.dp, top = 4.dp),
@@ -213,46 +218,105 @@ fun HomeScreen(
             
             /** Recommended news**/
             Row(
+               horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment= Alignment.CenterVertically,
                 modifier= Modifier
                     .fillMaxWidth()
-                    .padding(start = 3.dp, end = 3.dp),
-              horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(start = 4.dp, end = 12.dp),
+
                 
             ){
-                Text(text = "Recommendation")
-                Text(text = "Show more")
+                Text(text = "Recommendation",
+                    style= MaterialTheme.typography.headlineSmall)
+                Text(text = "Show more",
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        color = Color.Green,
+                        //fontSize = 16.sp
+                    ))
             }
+            
+            
+            Spacer(modifier = Modifier.height(8.dp))
+
+
             
             
             
             LazyColumn{
                 items(viewModel.recommendedNews.size) {
                     Card(
-                        modifier = Modifier.fillMaxWidth()
-                            .height(180.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(120.dp)
                             .padding(start = 3.dp, end = 3.dp, bottom = 5.dp)
                     ) {
                         Row {
 
                             //left
                             Surface(
-                                modifier = Modifier.fillMaxWidth(0.5f).fillMaxHeight()
-                                    ,
+                                modifier = Modifier
+                                    .fillMaxWidth(0.5f)
+                                    .fillMaxHeight(),
                                 color = Color.Green
 
 
                             ) {
+
+                                Image(
+                                    painter = painterResource(id = viewModel.recommendedNews[it].imageUrl),
+                                    contentDescription ="Images",
+                                    modifier = Modifier.clip(RectangleShape),
+                                    contentScale = ContentScale.FillBounds )
 
                             }
 
 
                             //right
                             Surface(
-                                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-                                color = Color.Red,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(),
+                               // color = Color.Red,
 
 
                             ) {
+
+                                Column (
+                                    modifier = Modifier.padding(4.dp),
+                                    verticalArrangement = Arrangement.Top,
+                                  //horizontalAlignment = Alignment.CenterHorizontally,
+                                ){
+                                    Text(text = viewModel.recommendedNews[it].title,
+                                        maxLines=2,
+                                        style = MaterialTheme.typography.bodyMedium.copy(
+                                            fontWeight = FontWeight.W700
+                                        ),
+                                        overflow = TextOverflow.Ellipsis
+                                        )
+
+                                    Spacer(modifier = Modifier.height(38.dp))
+                                    
+                                    Row (
+                                        modifier = Modifier.fillMaxWidth(),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.Top
+                                    ){
+                                        Text(
+                                            text = viewModel.recommendedNews[it].timestamp,
+                                            style = MaterialTheme.typography.bodySmall.copy(
+                                                color = Color.LightGray,
+                                                fontWeight = FontWeight.W400
+                                            )
+                                        )
+
+                                        
+                                        bookmarkButton(icon = Icons.TwoTone.ThumbUp) {
+                                            
+                                        }
+                                    }
+
+                                }
+                                
 
                             }
 

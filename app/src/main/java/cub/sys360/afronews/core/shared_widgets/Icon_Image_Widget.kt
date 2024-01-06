@@ -27,3 +27,15 @@ fun sharedIconsImages(icon: ImageVector, onclick: () -> Unit) {
         Icon(imageVector = icon,contentDescription = "Share")
     }
 }
+
+
+@Composable
+fun bookmarkButton(icon: ImageVector,onclick: () -> Unit){
+    IconButton(
+        modifier = Modifier
+            .size(22.dp),
+        onClick = onclick,) {
+
+        Icon(imageVector = icon,contentDescription = "bookmarkBtn")
+    }
+}
