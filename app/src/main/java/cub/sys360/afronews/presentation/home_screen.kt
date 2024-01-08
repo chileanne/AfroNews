@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import cub.sys360.afronews.core.navigation.navigationRoutes
 import cub.sys360.afronews.core.shared_widgets.bookmarkButton
 import cub.sys360.afronews.core.shared_widgets.sharedIconsImages
 import cub.sys360.afronews.viewmodel.homeViewModel
@@ -134,6 +136,19 @@ fun HomeScreen(
                 Card(
                     elevation = CardDefaults.cardElevation(4.dp),
                     modifier = Modifier
+                        .clickable {
+                            navController.navigate(
+                                navigationRoutes.detailsScreen.passRequiredArguments(
+                                    title = viewModel.carousleData[it].title ,
+                                    station =viewModel.carousleData[it].station ,
+                                    desc= viewModel.carousleData[it].desc,
+                                    imgUrl=viewModel.carousleData[it].imageUrl,
+                                    category=viewModel.carousleData[it].category,
+                                    channelLogo=viewModel.carousleData[it].channelLogo,
+                                    timestamp=viewModel.carousleData[it].timestamp
+                                )
+                            )
+                        }
                         .fillMaxWidth()
                         .height(240.dp)
                         .padding(end = 6.dp, start = 6.dp)
@@ -340,6 +355,20 @@ fun HomeScreen(
                     items(viewModel.recommendedNews.size) {
                         Card(
                             modifier = Modifier
+                                .clickable {
+
+                                    navController.navigate(
+                                        navigationRoutes.detailsScreen.passRequiredArguments(
+                                            title = viewModel.recommendedNews[it].title ,
+                                            station =viewModel.recommendedNews[it].station ,
+                                            desc= viewModel.recommendedNews[it].desc,
+                                            imgUrl=viewModel.recommendedNews[it].imageUrl,
+                                            category=viewModel.recommendedNews[it].category,
+                                            channelLogo=viewModel.recommendedNews[it].channelLogo,
+                                            timestamp=viewModel.recommendedNews[it].timestamp
+                                        )
+                                    )
+                                }
                                 .fillMaxWidth()
                                 .height(120.dp)
                                 .padding(start = 3.dp, end = 3.dp, bottom = 5.dp)

@@ -33,12 +33,22 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import cub.sys360.afronews.R
 import cub.sys360.afronews.core.shared_widgets.sharedIconsImages
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewsDetailScreen(){
+fun NewsDetailScreen(
+    navController: NavHostController,
+    title: String?,
+    station: String?,
+    desc: String?,
+    imgurl: Int?,
+    category: String?,
+    channelLogo: String?,
+    timestamp: String?
+) {
 
     Scaffold(
 
@@ -102,7 +112,7 @@ fun NewsDetailScreen(){
 
                      //  .fillMaxSize(),
                   contentScale = ContentScale.FillBounds,
-                   painter = painterResource(id = R.drawable.dj),
+                   painter = painterResource(id = imgurl!!),
                    contentDescription =""
                )
            }
@@ -110,10 +120,10 @@ fun NewsDetailScreen(){
             Spacer(
                 modifier = Modifier.height(8.dp)
             )
-            
-            
+
+
             Text(
-                text = "Djokovic Dominates the Tennis Court: A masterclass in Tennise Brilliance",
+                text = title!!,
                 style = MaterialTheme.typography.bodyLarge)
 
             Spacer(
@@ -131,7 +141,7 @@ fun NewsDetailScreen(){
                 Spacer(
                     modifier = Modifier.width(8.dp)
                 )
-                Text(text = "1 hour ago",
+                Text(text = timestamp!!,
                     style = MaterialTheme.typography.bodySmall)
             }
 
@@ -143,7 +153,7 @@ fun NewsDetailScreen(){
 
 
 
-            Text(text = "By Jehnson Wilson",
+            Text(text = "By ${station!!}",
                 style= MaterialTheme.typography.bodyMedium.copy(
                     fontSize = 20.sp,
                     fontWeight = FontWeight.W500
@@ -153,10 +163,7 @@ fun NewsDetailScreen(){
                 modifier = Modifier.height(8.dp)
             )
             
-            Text(text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed accumsan enim eget massa volutpat tristique. Cras luctus ultricies dolor, ut efficitur risus blandit in. Cras ac pellentesque odio. Sed dignissim eros ut elit viverra, vitae maximus neque tempor. In pellentesque mollis dolor ut lacinia. Suspendisse sollicitudin velit ac arcu consequat iaculis. Etiam arcu lacus, faucibus ac arcu eu, auctor efficitur massa. Vivamus a nibh erat. Donec vitae nibh sed ligula pharetra egestas in consequat nulla. Quisque ullamcorper sed purus sagittis ultricies. Ut quis metus ex. Praesent ante tellus, finibus at lobortis et, elementum vitae nisl. Maecenas maximus turpis at mi congue auctor. Vivamus at diam odio.\n" +
-                    "\n" +
-                    "Ut orci ante, dignissim quis mollis quis, luctus non arcu. Cras tristique nibh dolor, eu volutpat lorem pellentesque ac. Phasellus non urna fermentum, malesuada velit sed, blandit quam. Donec facilisis nisi quis egestas ornare. Integer ut dictum nunc. Suspendisse hendrerit sit amet enim rhoncus rutrum. Fusce malesuada quis mi vehicula mollis. Aenean vel vestibulum tortor. Etiam eu condimentum metus, vel sollicitudin libero. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
-
+            Text(text = desc!! ,
                 style = MaterialTheme.typography.bodyMedium
                 )
 
