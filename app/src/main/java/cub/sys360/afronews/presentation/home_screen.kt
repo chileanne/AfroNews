@@ -333,14 +333,21 @@ fun HomeScreen(
                     ) {
                     Text(
                         text = "Recommendation",
-                        style = MaterialTheme.typography.headlineSmall
+                        style = MaterialTheme.typography.headlineSmall.copy(
+                            fontWeight = FontWeight.W500
+                        )
                     )
                     Text(
                         text = "Show more",
                         style = MaterialTheme.typography.bodySmall.copy(
                             color = Color.Green,
+                            fontWeight = FontWeight.W400
                             //fontSize = 16.sp
-                        )
+                        ),
+
+                        modifier = Modifier.clickable {
+                            navController.navigate(navigationRoutes.seeMoreScreen.routes)
+                        }
                     )
                 }
 

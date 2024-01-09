@@ -1,5 +1,6 @@
 package cub.sys360.afronews.ui.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -25,10 +26,12 @@ val Typography = Typography(
 
     headlineSmall = TextStyle(
         fontFamily = interFamily,
-        fontWeight = FontWeight.W500,
+        fontWeight = FontWeight.W700,
         fontSize = 20.sp,
         lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
+        letterSpacing = 0.5.sp,
+
+
     ),
 
 

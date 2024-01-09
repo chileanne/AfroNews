@@ -68,7 +68,9 @@ fun NewsDetailScreen(
 
                     sharedIconsImages(
                         icon  = Icons.Filled.ArrowBack,
-                        onclick = {}
+                        onclick = {
+                            navController.popBackStack()
+                        }
                     )
 
 

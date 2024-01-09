@@ -15,12 +15,15 @@ import cub.sys360.afronews.core.appconstant.Appconstants.DETAIL_SCREEN_TIMESTAMP
 import cub.sys360.afronews.core.appconstant.Appconstants.DETAIL_SCREEN_TITLE
 import cub.sys360.afronews.presentation.HomeScreen
 import cub.sys360.afronews.presentation.NewsDetailScreen
+import cub.sys360.afronews.presentation.SeemoreScreen
 
 @Composable
 fun navigationGraph( navController: NavHostController){
     
     
     NavHost(navController = navController, startDestination = navigationRoutes.homeScreen.routes){
+
+      //Home Screen Routes
         composable(
             route=navigationRoutes.homeScreen.routes,
 
@@ -30,6 +33,7 @@ fun navigationGraph( navController: NavHostController){
 
 
 
+            //Detail Screen Routes
         composable(route=navigationRoutes.detailsScreen.routes,
             arguments = listOf(
                 navArgument(name = "$DETAIL_SCREEN_TITLE"){
@@ -85,18 +89,23 @@ fun navigationGraph( navController: NavHostController){
 
            NewsDetailScreen(navController,title,station,desc,imgurl,category,channelLogo,timestamp)
 
-//            NewsDetailScreen(
-//                navController = navController,
-//                title = title,
-//                station = station,
-//                desc =desc,
-//                imgurl =imgurl ,
-//                category = category,
-//                channelLogo = channelLogo,
-//                timestamp = timestamp
-//            )
         }
+
+
+
+        //See more Screen
+
+        composable(route = navigationRoutes.seeMoreScreen.routes){
+             SeemoreScreen(navController)
+        }
+
+
+
     }
+
+
+
+
     
 }
 

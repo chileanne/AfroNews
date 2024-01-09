@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,7 +21,7 @@ fun sharedIconsImages(icon: ImageVector, onclick: () -> Unit) {
     IconButton(
         modifier = Modifier
             .clip(CircleShape)
-            .background(color = lightGrey)
+            .background(color = MaterialTheme.colorScheme.tertiary)
             .size(32.dp),
         onClick = onclick,) {
 
